@@ -1,0 +1,14 @@
+{
+  "extends": [
+    "standard"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+    "no-console": "warn",
+    "generator-star-spacing": "off",
+    "import/export": 2
+  }
+}
