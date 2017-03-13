@@ -2,8 +2,10 @@
   "name": "@allthings/colors",
   "author": "Allthings",
   "license": "MIT",
-  "version": "0.3.0",
-  "files": [ "lib" ],
+  "version": "1.0.0",
+  "files": [
+    "lib"
+  ],
   "engines": {
     "node": ">=6.5.0",
     "npm": ">=3.0.0"
