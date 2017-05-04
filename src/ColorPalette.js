@@ -1,7 +1,6 @@
 const palette = {
   white: '#ffffff',
   black: '#000000',
-  text: '#333333',
 
   green1: '#00bf93',
   green2: '#16a086',
@@ -47,6 +46,12 @@ const palette = {
 palette.background = {
   light: '#2c2c2c',
   dark: '#232323'
+}
+palette.text = {
+  primary: '#333333',
+  secondary: '#626262',
+  gray: '#bbbbbb',
+  lightGray: '#e7ecee'
 }
 palette.primary = {
   gray: palette.gray2,
