@@ -44,6 +44,7 @@ const palette = {
   gray4: '#7e8c8d'
 }
 palette.background = {
+  gray: '#ecf0f1',
   light: '#2c2c2c',
   dark: '#232323'
 }
