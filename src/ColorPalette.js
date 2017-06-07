@@ -37,6 +37,35 @@ const palette = {
   none: '#000000'
 }
 
+palette.background = {
+  gray: palette.lightGrey,
+  light: '#2c2c2c',
+  dark: palette.blackIntense
+}
+palette.text = {
+  primary: '#333333',
+  secondary: '#626262',
+  gray: '#bbbbbb',
+  lightGray: '#e7ecee'
+}
+palette.primary = {
+  gray: palette.lightGreyIntense,
+  blue: palette.blue,
+  green: palette.turquoiseIntense,
+  pink: palette.violet,
+  red: palette.brownIntense,
+  orange: palette.yellowOrangeIntense
+}
+palette.state = {
+  success: palette.mintIntense,
+  warning: palette.yellowOrangeIntense,
+  error: palette.redIntense
+}
+palette.social = {
+  facebook: '#3b5998',
+  google: '#c53929'
+}
+
 palette.legacy = {
   black: palette.none, // '#000000',
   green1: palette.turquoise, // '#00bf93',
@@ -71,35 +100,7 @@ palette.legacy = {
   gray1: palette.lightGrey, // '#ecf0f1',
   gray2: palette.lightGreyIntense, // '#bec3c7',
   gray3: palette.grey, // '#95a5a5',
-  gray4: palette.greyIntense, // '#7e8c8d',
-  background: {
-    gray: palette.lightGrey,
-    light: '#2c2c2c',
-    dark: palette.blackIntense
-  },
-  text: {
-    primary: '#333333',
-    secondary: '#626262',
-    gray: '#bbbbbb',
-    lightGray: '#e7ecee'
-  },
-  primary: {
-    gray: palette.gray2,
-    blue: palette.blue3,
-    green: palette.green2,
-    pink: palette.pink3,
-    red: palette.orange3,
-    orange: palette.orange1
-  },
-  state: {
-    success: palette.green4,
-    warning: palette.orange1,
-    error: palette.red2
-  },
-  social: {
-    facebook: '#3b5998',
-    google: '#c53929'
-  }
+  gray4: palette.greyIntense // '#7e8c8d',
 }
 
 export default palette
