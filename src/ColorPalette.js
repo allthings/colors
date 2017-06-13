@@ -1,6 +1,6 @@
 const palette = {
-  black: '#2c2c2c',
-  blackIntense: '#232323',
+  lightBlack: '#2c2c2c',
+  lightBlackIntense: '#232323',
   turquoise: '#00bf93',
   turquoiseIntense: '#16a086',
   mint: '#2dcc70',
@@ -34,13 +34,14 @@ const palette = {
   lightBlue: '#7dc2d2',
   lightBlueIntense: '#1cabbb',
   white: '#ffffff',
-  none: '#000000'
+  whiteIntense: '#f3f5f7',
+  black: '#000000',
+  none: 'transparent'
 }
 
 palette.background = {
-  gray: palette.lightGrey,
-  light: '#2c2c2c',
-  dark: palette.blackIntense
+  light: palette.lightBlack,
+  dark: palette.lightBlackIntense
 }
 palette.text = {
   primary: '#333333',
