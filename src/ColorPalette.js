@@ -40,8 +40,14 @@ const palette = {
 }
 
 palette.background = {
-  light: palette.lightBlack,
-  dark: palette.lightBlackIntense
+  black: palette.black,
+  dark: palette.lightBlackIntense,
+  intense: palette.lightBlack,
+  medium: palette.grey,
+  light: palette.lightGrey,
+  bright: palette.whiteIntense,
+  white: palette.white,
+  none: palette.none
 }
 palette.text = {
   primary: '#333333',
