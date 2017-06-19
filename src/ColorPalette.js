@@ -74,7 +74,7 @@ palette.social = {
 }
 
 palette.legacy = {
-  black: palette.none, // '#000000',
+  black: palette.black, // '#000000',
   green1: palette.turquoise, // '#00bf93',
   green2: palette.turquoiseIntense, // '#16a086',
   green3: palette.mint, // '#2dcc70',
