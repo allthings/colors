@@ -1,4 +1,4 @@
-<?php require_once('../src/ColorPalette.php'); ?>
+<?php require_once('ColorPalette.php'); ?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
