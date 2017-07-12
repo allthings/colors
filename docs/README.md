@@ -9,12 +9,12 @@ Some experimental decorative and interactive isometric and 3D grids.
 [Article on Codrops](http://tympanus.net/codrops/?p=27094)
 
 ## Development
-1. Modify colors.php 
+1. Modify ../src/ColorPalette.php 
 2. run `php -S localhost:8000`
 
 ## Deployment
 1. Create a new Branch 
-2. Modify colors.php
+2. Modify ../src/ColorPalette.php 
 3. run `php index.php > index.html`
 4. Push and create a Pull-Request
 
