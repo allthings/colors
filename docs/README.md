@@ -1,6 +1,7 @@
-# Allthings Colors - Grid view
+![Allthings Colors](https://allthings.github.io/colors/img/allthings.dev.colors.logo.svg)
+***
 
-Heavily based on the Isometric Grids from Codrops.
+Grid view of Allthings Colors - Heavily based on the Isometric Grids from Codrops.
 
 ***
 
