@@ -20,7 +20,7 @@
 			<header class="codrops-header">
 				<img src="img/allthings.developers-logo-white.svg" class="logo" alt="Logo Allthings" height="30px" />
 				<h1>Colors</h1>
-				<p>Hex code gets copied to clipboard as soon as you click!<p>
+				<p>ColorName gets copied to clipboard as soon as you click!<p>
 				<?php /* <!-- <nav class="codrops-demos">
 					<a class="current-demo" href="index.html">Scrollable grid</a>
 					<a href="index2.html">Static grid</a>
@@ -34,7 +34,7 @@
 				<ul class="grid grid--effect-flip">
 				<?php foreach($palette as $k=>$v){ ?>
 					<li class="grid__item">
-						<a class="grid__link" data-color="<?php echo $v;?>" data-name="<?php echo $k;?>" data-clipboard-text="<?php echo $v;?>">
+						<a class="grid__link" data-color="<?php echo $v;?>" data-name="<?php echo $k;?>" data-clipboard-text="<?php echo $k;?>">
 							<img class="grid__img layer" src="img/canvas.png" alt="Canvas Dummy" />
 							<img class="grid__img layer" src="img/wireframe.png" alt="Wireframe Dummy" />
 							<div class="grid__img layer grid__color" style="background-color:<?php echo $v;?>"><?php echo $k; ?><br /><small><?php echo $v; ?><</small></div>
