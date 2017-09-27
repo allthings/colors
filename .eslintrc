@@ -9,6 +9,8 @@
   "rules": {
     "no-console": "warn",
     "generator-star-spacing": "off",
-    "import/export": 2
+    "import/export": 2,
+    "comma-dangle": "off",
+    "space-before-function-paren": "off"
   }
 }
