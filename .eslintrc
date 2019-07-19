@@ -1,16 +1,12 @@
 {
   "extends": [
-    "standard"
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint"
   ],
-  "parser": "babel-eslint",
-  "plugins": [
-    "import"
-  ],
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "rules": {
-    "no-console": "warn",
-    "generator-star-spacing": "off",
-    "import/export": 2,
-    "comma-dangle": "off",
-    "space-before-function-paren": "off"
+    "@typescript-eslint/explicit-function-return-type": "off"
   }
 }
