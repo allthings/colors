@@ -1,7 +1,13 @@
 import hexToRgb from './hexToRgb'
 import rgbToHex from './rgbToHex'
 
-function calculateTransparentColor(color, alpha) {
+export interface RGBColor {
+  r: number
+  g: number
+  b: number
+}
+
+function calculateTransparentColor(color: RGBColor, alpha: number) {
   const blendingColor = {
     r: 255,
     g: 255,
@@ -15,7 +21,7 @@ function calculateTransparentColor(color, alpha) {
   )
 }
 
-export default function alpha(hex, alpha, actualColor) {
+export default function alpha(hex: string, alpha: number, actualColor: boolean) {
   const rgb = hexToRgb(hex)
   if (rgb === null) {
     throw new Error(
