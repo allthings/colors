@@ -17,15 +17,19 @@ function calculateTransparentColor(color: RGBColor, alpha: number) {
   return rgbToHex(
     (1 - alpha) * blendingColor.r + alpha * color.r,
     (1 - alpha) * blendingColor.g + alpha * color.g,
-    (1 - alpha) * blendingColor.b + alpha * color.b
+    (1 - alpha) * blendingColor.b + alpha * color.b,
   )
 }
 
-export default function alpha(hex: string, alpha: number, actualColor: boolean) {
+export default function alpha(
+  hex: string,
+  alpha: number,
+  actualColor?: boolean,
+) {
   const rgb = hexToRgb(hex)
   if (rgb === null) {
     throw new Error(
-      `\`hex\` value provided to \`alpha\` is not a HEX color, \`${hex}\` given.`
+      `\`hex\` value provided to \`alpha\` is not a HEX color, \`${hex}\` given.`,
     )
   }
 
