@@ -8,13 +8,13 @@
   ],
   "main": "dist/index.js",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^1.12.0",
-    "@typescript-eslint/parser": "^1.12.0",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
     "prettier": "^1.18.2",
-    "rimraf": "^2.6.3",
-    "typescript": "^3.5.3"
+    "rimraf": "^3.0.0",
+    "typescript": "^3.6.3"
   },
   "prettier": {
     "semi": false,
@@ -26,6 +26,7 @@
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.json",
     "postversion": "git push --tags origin HEAD",
-    "prepublishOnly": "yarn lint && yarn build"
+    "prepublishOnly": "yarn lint && yarn build",
+    "upgrade-dependencies": "yarn upgrade-interactive --latest"
   }
 }
