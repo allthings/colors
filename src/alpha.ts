@@ -25,7 +25,7 @@ export default function alpha(
   hex: string,
   alpha: number,
   actualColor?: boolean,
-) {
+): string {
   const rgb = hexToRgb(hex)
   if (rgb === null) {
     throw new Error(
