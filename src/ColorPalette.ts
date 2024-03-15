@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 const palette = {
   lightBlack: '#2c2c2c',
   lightBlackIntense: '#232323',
@@ -49,12 +50,14 @@ const background = {
   white: palette.white,
   none: palette.none,
 }
+
 const text = {
   primary: '#333333',
   secondary: '#626262',
   gray: '#bbbbbb',
   lightGray: '#e7ecee',
 }
+
 const primary = {
   gray: palette.lightGreyIntense,
   blue: palette.blue,
@@ -63,11 +66,13 @@ const primary = {
   red: palette.brownIntense,
   orange: palette.yellowOrangeIntense,
 }
+
 const state = {
   success: palette.mintIntense,
   warning: palette.yellowOrangeIntense,
   error: palette.redIntense,
 }
+
 const social = {
   facebook: '#3b5998',
   google: '#c53929',
