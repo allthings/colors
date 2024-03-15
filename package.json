@@ -2,19 +2,17 @@
   "name": "@allthings/colors",
   "author": "Allthings",
   "license": "MIT",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "files": [
     "dist"
   ],
   "main": "dist/index.js",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
-    "eslint": "^8.38.0",
-    "eslint-config-prettier": "^8.8.0",
-    "prettier": "^2.8.7",
-    "rimraf": "^5.0.0",
-    "typescript": "^5.0.4"
+    "@allthings/eslint-config": "^2.1.1",
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.2"
   },
   "prettier": {
     "semi": false,

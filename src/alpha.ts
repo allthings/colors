@@ -1,13 +1,14 @@
 import hexToRgb from './hexToRgb'
 import rgbToHex from './rgbToHex'
 
-export interface RGBColor {
+/* eslint-disable sort-keys, typescript-sort-keys/interface */
+export interface IRGBColor {
   r: number
   g: number
   b: number
 }
 
-function calculateTransparentColor(color: RGBColor, alpha: number) {
+const calculateTransparentColor = (color: IRGBColor, alphaNumber: number) => {
   const blendingColor = {
     r: 255,
     g: 255,
@@ -15,25 +16,27 @@ function calculateTransparentColor(color: RGBColor, alpha: number) {
   }
 
   return rgbToHex(
-    (1 - alpha) * blendingColor.r + alpha * color.r,
-    (1 - alpha) * blendingColor.g + alpha * color.g,
-    (1 - alpha) * blendingColor.b + alpha * color.b,
+    (1 - alphaNumber) * blendingColor.r + alphaNumber * color.r,
+    (1 - alphaNumber) * blendingColor.g + alphaNumber * color.g,
+    (1 - alphaNumber) * blendingColor.b + alphaNumber * color.b,
   )
 }
 
-export default function alpha(
+const alpha = (
   hex: string,
-  alpha: number,
+  alphaNumber: number,
   actualColor?: boolean,
-): string {
+): string => {
   const rgb = hexToRgb(hex)
-  if (rgb === null) {
+  if (rgb === undefined) {
     throw new Error(
       `\`hex\` value provided to \`alpha\` is not a HEX color, \`${hex}\` given.`,
     )
   }
 
   return actualColor
-    ? calculateTransparentColor(rgb, alpha)
-    : `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`
+    ? calculateTransparentColor(rgb, alphaNumber)
+    : `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alphaNumber})`
 }
+
+export default alpha
