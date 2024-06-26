@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1090
 source ~/.bashrc
 export NVM_DIR=~/.nvm
 source ~/.nvm/nvm.sh
@@ -13,5 +14,6 @@ source ~/.nvm/bash_completion
 
   "$@"
 } || {
+  echo "An error occurred during execution."
   exit 1
 }
