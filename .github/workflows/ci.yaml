@@ -1,0 +1,80 @@
+name: pipeline
+on: [ push ]
+
+env:
+  TAG_NAME: $(echo "${{ github.ref_name }}" | sed 's/[^a-zA-Z0-9._-]/_/g')
+  NVM_NODE_VERSION: 18
+  PROJECT: colors
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-lint:
+    runs-on:
+      group: default-runners
+      labels: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        env:
+          CURRENT_RUNNER: ${{ runner.name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NVM_NODE_VERSION }}
+
+      - name: build-and-lint
+        shell: bash
+        run: |
+          ./bin/node-version-manager.sh yarn install --production=false --frozen-lockfile
+          ./bin/node-version-manager.sh yarn build
+          ./bin/node-version-manager.sh yarn lint
+
+  dry-run-publish:
+    needs: [ build-and-lint ]
+    runs-on:
+      group: default-runners
+      labels: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        env:
+          CURRENT_RUNNER: ${{ runner.name }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NVM_NODE_VERSION }}
+
+      - name: dry-run-publish
+        shell: bash
+        run: |
+          ./bin/node-version-manager.sh yarn install --production=false --frozen-lockfile
+          ./bin/node-version-manager.sh yarn build
+          ./bin/node-version-manager.sh npm publish --access public --tag latest --dry-run
+
+  publish-npm:
+    needs: [ dry-run-publish ]
+    # TODO: not working yet
+    if: false
+    # if: github.ref == 'refs/heads/master'
+    runs-on:
+      group: default-runners
+      labels: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        env:
+          CURRENT_RUNNER: ${{ runner.name }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NVM_NODE_VERSION }}
+
+      - name: publish-npm
+        shell: bash
+        run: |
+          ./bin/node-version-manager.sh yarn install --production=false --frozen-lockfile
+          ./bin/node-version-manager.sh yarn build
+          ./bin/node-version-manager.sh npm publish --access public --tag latest
