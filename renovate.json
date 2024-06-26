@@ -1,5 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>allthings/renovate-config", "docker:disable"],
-  "schedule": ["on the 1st day instance on sunday after 1am"]
+  "extends": ["github>allthings/renovate-config", "docker:disable"]
 }
