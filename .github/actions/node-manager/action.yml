@@ -1,0 +1,17 @@
+name: node-manager
+description: 'Setup node and install yarn'
+inputs:
+  node-version:
+    description: 'Node version'
+    required: true
+    default: 18
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install yarn
+      shell: bash
+      run: npm install -g yarn
