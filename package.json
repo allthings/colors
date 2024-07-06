@@ -9,7 +9,7 @@
   "main": "dist/index.js",
   "devDependencies": {
     "@allthings/eslint-config": "^2.1.1",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "prettier": "^3.3.2",
     "rimraf": "^5.0.7",
     "typescript": "^5.5.2"
