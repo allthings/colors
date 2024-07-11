@@ -20,16 +20,17 @@ jobs:
         env:
           CURRENT_RUNNER: ${{ runner.name }}
 
-      - uses: actions/setup-node@v4
+      - name: setup node
+        uses: ./.github/actions/node-manager
         with:
           node-version: ${{ env.NVM_NODE_VERSION }}
 
       - name: build-and-lint
         shell: bash
         run: |
-          ./bin/node-version-manager.sh yarn install --production=false --frozen-lockfile
-          ./bin/node-version-manager.sh yarn build
-          ./bin/node-version-manager.sh yarn lint
+          yarn install --production=false --frozen-lockfile
+          yarn build
+          yarn lint
 
   dry-run-publish:
     needs: [ build-and-lint ]
@@ -42,16 +43,17 @@ jobs:
           CURRENT_RUNNER: ${{ runner.name }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
-      - uses: actions/setup-node@v4
+      - name: setup node
+        uses: ./.github/actions/node-manager
         with:
           node-version: ${{ env.NVM_NODE_VERSION }}
 
       - name: dry-run-publish
         shell: bash
         run: |
-          ./bin/node-version-manager.sh yarn install --production=false --frozen-lockfile
-          ./bin/node-version-manager.sh yarn build
-          ./bin/node-version-manager.sh npm publish --access public --tag latest --dry-run
+          yarn install --production=false --frozen-lockfile
+          yarn build
+          npm publish --access public --tag latest --dry-run
 
   publish-npm:
     needs: [ dry-run-publish ]
@@ -67,14 +69,14 @@ jobs:
           CURRENT_RUNNER: ${{ runner.name }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v4
+      - name: setup node
+        uses: ./.github/actions/node-manager
         with:
           node-version: ${{ env.NVM_NODE_VERSION }}
 
       - name: publish-npm
         shell: bash
         run: |
-          ./bin/node-version-manager.sh yarn install --production=false --frozen-lockfile
-          ./bin/node-version-manager.sh yarn build
-          ./bin/node-version-manager.sh npm publish --access public --tag latest
+          yarn install --production=false --frozen-lockfile
+          yarn build
+          npm publish --access public --tag latest
