@@ -1,0 +1,70 @@
+name: ddb-pipeline-status
+description: 'Changes the pipeline status and checks it'
+inputs:
+  action:
+    description: 'Action of progress, passed, status'
+    required: true
+  project:
+    description: 'Name of project'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set to in progress
+      env:
+        BRANCH_NAME: ${{ github.ref_name }}
+        COMMAND_ACTION: ${{ inputs.action }}
+        PROJECT: ${{ inputs.project }}
+        TABLE_NAME: allthings-github-actions-status
+      shell: bash
+      run: |
+        if [ "${{ env.COMMAND_ACTION }}" != "progress" ]; then exit 0; fi
+
+        keyJson="{\"pk\":{\"S\":\"${{ env.PROJECT }}-${{ env.BRANCH_NAME }}\"}}"
+        {
+          aws-vault exec --backend=pass allthings-development-github-role -- aws dynamodb update-item \
+            --table-name "${{ env.TABLE_NAME }}" \
+            --update-expression "SET passed = :status" \
+            --expression-attribute-values '{":status":{"BOOL":false}}' \
+            --key="$keyJson"
+        } || {
+          exit 1
+        }
+        exit 0
+
+    - name: Set to in passed
+      env:
+        BRANCH_NAME: ${{ github.ref_name }}
+        COMMAND_ACTION: ${{ inputs.action }}
+        PROJECT: ${{ inputs.project }}
+        TABLE_NAME: allthings-github-actions-status
+      shell: bash
+      run: |
+        if [ "${{ env.COMMAND_ACTION }}" != "passed" ]; then exit 0; fi
+
+        keyJson="{\"pk\":{\"S\":\"${{ env.PROJECT }}-${{ env.BRANCH_NAME }}\"}}"
+        {
+          aws-vault exec --backend=pass allthings-development-github-role -- aws dynamodb update-item \
+            --table-name "${{ env.TABLE_NAME }}" --key="$keyJson" \
+            --update-expression "SET passed = :status" \
+            --expression-attribute-values '{":status":{"BOOL":true}}'
+        } || {
+          exit 1
+        }
+        exit 0
+
+    - name: Set to in passed
+      env:
+        BRANCH_NAME: ${{ github.ref_name }}
+        COMMAND_ACTION: ${{ inputs.action }}
+        PROJECT: ${{ inputs.project }}
+        TABLE_NAME: allthings-github-actions-status
+      shell: bash
+      run: |
+        if [ "${{ env.COMMAND_ACTION }}" != "status" ]; then exit 0; fi
+
+        keyJson="{\"pk\":{\"S\":\"${{ env.PROJECT }}-${{ env.BRANCH_NAME }}\"}}"
+        aws-vault exec --backend=pass allthings-development-github-role -- aws dynamodb get-item \
+          --table-name "${{ env.TABLE_NAME }}" --key="$keyJson" | grep "\"BOOL\": true" || exit 1
+        exit 0
