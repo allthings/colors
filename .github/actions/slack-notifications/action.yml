@@ -1,0 +1,23 @@
+name: slack-notifications
+description: 'Sends slack notification'
+inputs:
+  notification-type:
+    description: 'Type of notification like nightly-security-check'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set to in progress
+      env:
+        PROJECT: ${{ env.PROJECT }}
+        BUILD_NUMBER: ${{ github.run_id }}
+        SLACK_GITHUB_ACTIONS_WEBHOOK: ${{ env.SLACK_GITHUB_ACTIONS_WEBHOOK }}
+        NOTIFICATION_TYPE: ${{ inputs.notification-type }}
+      shell: bash
+      run: |
+        if [ "${{ env.NOTIFICATION_TYPE }}" = "nightly-security-check" ]; then
+          JOB_URL="https://github.com/allthings/${{ env.PROJECT }}/actions/runs/${{ env.BUILD_NUMBER }}"
+          curl -X POST "${{ env.SLACK_GITHUB_ACTIONS_WEBHOOK }}" -H "Content-Type: application/json" \
+            -d "{\"blocks\":[{\"text\":{\"text\":\"*Name:* ${{ env.PROJECT }} nightly security check\\n*Type:* cron-job\\n*Text:* Security check failed\\n><$JOB_URL|View failing job>\",\"type\":\"mrkdwn\"},\"type\":\"section\"}],\"text\":\"\"}"        
+        fi
