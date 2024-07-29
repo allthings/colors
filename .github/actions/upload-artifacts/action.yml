@@ -1,0 +1,44 @@
+name: upload-artifacts
+description: 'Uploads files to s3'
+inputs:
+  path:
+    description: 'Location of files'
+    required: true
+  runner-id:
+    description: 'Id of runner as an identifier'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set PATH
+      shell: bash
+      run: |
+        echo "/bin" >> $GITHUB_PATH
+        echo "/sbin" >> $GITHUB_PATH
+        echo "/usr/bin" >> $GITHUB_PATH
+        echo "/usr/sbin" >> $GITHUB_PATH
+        echo "/usr/local/bin" >> $GITHUB_PATH
+        echo "/usr/local/sbin" >> $GITHUB_PATH
+
+    - name: upload files
+      shell: bash
+      working-directory: ${{ inputs.path }}
+      env:
+        RUNNER_BUCKET: s3://agent-artifacts-eu-west-1/${{ github.run_id }}/runner-${{ inputs.runner-id }}-${{ github.run_attempt }}
+      run: >
+        aws-vault exec --backend=pass allthings-development-github-role --duration=12h -- 
+        aws s3 cp --region=eu-west-1 --recursive "./" "${{ env.RUNNER_BUCKET }}" --acl bucket-owner-full-control
+
+    - name: print file links
+      shell: bash
+      working-directory: ${{ inputs.path }}
+      env:
+        RUNNER_BUCKET: s3://agent-artifacts-eu-west-1/${{ github.run_id }}/runner-${{ inputs.runner-id }}-${{ github.run_attempt }}
+      run: >
+        while IFS= read -r runnerFile; 
+        do 
+          filePath=$(echo "$runnerFile" | grep -Po "\d+\/.*"); fileName=$(echo "$filePath" | sed 's/.*\///');
+          echo "$fileName";
+          echo "https://allthings-github-artifacts.auth.eu-west-1.amazoncognito.com/oauth2/authorize?response_type=token&client_id=7pn0enn1f29m6ghpdik78hkp33&redirect_uri=https://cksj34aqloivipgg7nsw6exyam0zogkq.lambda-url.eu-west-1.on.aws&scope=aws.cognito.signin.user.admin+openid+profile&state=$(echo "$filePath" | jq --slurp --raw-input --raw-output @uri | sed 's/%0A$//')";
+        done <<< "$(aws-vault exec --backend=pass allthings-development-github-role --duration=12h -- aws s3 ls --region=eu-west-1 --recursive "${{ env.RUNNER_BUCKET }}")"

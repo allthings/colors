@@ -1,0 +1,42 @@
+name: docker-build
+description: 'Setup up docker and login'
+inputs:
+  context:
+    description: 'Folder path where Dockerfile is located'
+    required: false
+    default: './'
+  multiarch:
+    description: 'Decides if arm build is required'
+    required: false
+    default: 'false'
+  name:
+    description: 'Image name'
+    required: true
+  tag:
+    description: 'Image tag'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: export tag name
+      id: export_tag_name_and_platforms
+      shell: bash
+      env:
+        BUILD_NUMBER: ${{ github.run_id }}
+        MULTIARCH: ${{ inputs.multiarch }}
+        TAG_NAME: ${{ inputs.tag }}
+      run: |
+        echo "tag_name=$(echo "${{ env.TAG_NAME }}")" >> $GITHUB_OUTPUT
+        echo "platforms=$(if [ "${{ env.MULTIARCH }}" != "true" ]; then echo "linux/amd64"; else echo "linux/arm64,linux/amd64"; fi)" >> $GITHUB_OUTPUT
+
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      env:
+        PROJECT: ${{ inputs.name }}
+      with:
+        no-cache: true
+        push: true
+        tags: allthings/${{ env.PROJECT }}:${{ steps.export_tag_name_and_platforms.outputs.tag_name }}
+        platforms: ${{ steps.export_tag_name_and_platforms.outputs.platforms }}
+        context: ${{ inputs.context }}

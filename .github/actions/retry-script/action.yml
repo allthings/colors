@@ -1,0 +1,41 @@
+name: retry-script
+description: 'Retries provided script'
+inputs:
+  script:
+    description: 'Location of file'
+    required: true
+  attempts:
+    description: 'Attempt until failure'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set PATH
+      shell: bash
+      run: |
+        echo "/bin" >> $GITHUB_PATH
+        echo "/sbin" >> $GITHUB_PATH
+        echo "/usr/bin" >> $GITHUB_PATH
+        echo "/usr/sbin" >> $GITHUB_PATH
+        echo "/usr/local/bin" >> $GITHUB_PATH
+        echo "/usr/local/sbin" >> $GITHUB_PATH
+
+    - name: retry script
+      shell: bash
+      env:
+        SCRIPT: ${{ inputs.script }}
+        MAX_ATTEMPTS: ${{ inputs.attempts }}
+      run: >
+        set +e && for i in $(seq 1 "${{ env.MAX_ATTEMPTS }}");
+        do
+          ${{ env.SCRIPT }};
+          res="$?";
+          if [[ "$res" == "0" ]]; then
+            exit "$res";
+          fi;
+          if [[ "$i" == "${{ env.MAX_ATTEMPTS }}" ]]; then
+            exit "$res";
+          fi;
+          echo "::warning title=Retry::Current run $i failed of ${{ env.MAX_ATTEMPTS }} attempts";
+        done
