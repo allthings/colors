@@ -1,3 +1,4 @@
+# You can find code and docs here: https://github.com/allthings/github-action-tools
 name: docker-build
 description: 'Setup up docker and login'
 inputs:
@@ -15,6 +16,9 @@ inputs:
   tag:
     description: 'Image tag'
     required: true
+  build-args:
+    description: 'Build args for image build'
+    required: false
 
 runs:
   using: "composite"
@@ -40,3 +44,4 @@ runs:
         tags: allthings/${{ env.PROJECT }}:${{ steps.export_tag_name_and_platforms.outputs.tag_name }}
         platforms: ${{ steps.export_tag_name_and_platforms.outputs.platforms }}
         context: ${{ inputs.context }}
+        build-args: ${{ inputs.build-args }}

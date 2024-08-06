@@ -1,3 +1,4 @@
+# You can find code and docs here: https://github.com/allthings/github-action-tools
 name: print-logs
 description: 'Prints logs by given path'
 inputs:
@@ -27,13 +28,17 @@ runs:
           if [ -d ./"$log" ]; then
             for logInDir in "$log"/*;
             do
-              echo "::group::$logInDir";
-              /bin/cat "$logInDir";
-              echo "::endgroup::";
+              if [ -f "$logInDir" ]; then
+                echo "::group::$logInDir";
+                /bin/cat "$logInDir";
+                echo "::endgroup::";
+              fi;
              done;
           else
-            echo "::group::$log";
-            /bin/cat "$log";
-            echo "::endgroup::";
+            if [ -f "$log" ]; then
+              echo "::group::$log";
+              /bin/cat "$log";
+              echo "::endgroup::";
+            fi;
           fi;
         done
