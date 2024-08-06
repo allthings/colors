@@ -1,10 +1,10 @@
+# You can find code and docs here: https://github.com/allthings/github-action-tools
 name: node-manager
 description: 'Setup node and install yarn'
 inputs:
   node-version:
     description: 'Node version'
     required: true
-    default: 18
 runs:
   using: "composite"
   steps:
