@@ -12,9 +12,7 @@ concurrency:
 
 jobs:
   build-and-lint:
-    runs-on:
-      group: default-runners
-      labels: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         env:
@@ -34,9 +32,7 @@ jobs:
 
   dry-run-publish:
     needs: [ build-and-lint ]
-    runs-on:
-      group: default-runners
-      labels: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         env:
@@ -60,9 +56,7 @@ jobs:
     # TODO: not working yet
     if: false
     # if: github.ref == 'refs/heads/master'
-    runs-on:
-      group: default-runners
-      labels: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         env:
