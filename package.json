@@ -15,7 +15,7 @@
     "husky": "9.1.5",
     "lint-staged": "15.2.9",
     "prettier": "3.3.3",
-    "rimraf": "5.0.7",
+    "rimraf": "5.0.10",
     "typescript": "5.5.4"
   },
   "prettier": {
