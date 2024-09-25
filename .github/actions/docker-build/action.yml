@@ -1,6 +1,6 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: docker-build
-description: 'Setup up docker and login'
+description: 'Build multiarch Docker image'
 inputs:
   context:
     description: 'Folder path where Dockerfile is located'
@@ -35,11 +35,32 @@ runs:
         echo "platforms=$(if [ "${{ env.MULTIARCH }}" != "true" ]; then echo "linux/amd64"; else echo "linux/arm64,linux/amd64"; fi)" >> $GITHUB_OUTPUT
 
     - name: Build and push
+      continue-on-error: true
+      id: buildx1
       uses: docker/build-push-action@v6
       env:
         PROJECT: ${{ inputs.name }}
       with:
-        no-cache: true
+        no-cache: false
+        push: true
+        tags: allthings/${{ env.PROJECT }}:${{ steps.export_tag_name_and_platforms.outputs.tag_name }}
+        platforms: ${{ steps.export_tag_name_and_platforms.outputs.platforms }}
+        context: ${{ inputs.context }}
+        build-args: ${{ inputs.build-args }}
+
+    - name: Wait to retry
+      if: steps.buildx1.outcome != 'success'
+      shell: bash
+      run: |
+        sleep 60
+
+    - name: Build and push (2nd attempt)
+      uses: docker/build-push-action@v6
+      if: steps.buildx1.outcome != 'success'
+      env:
+        PROJECT: ${{ inputs.name }}
+      with:
+        no-cache: false
         push: true
         tags: allthings/${{ env.PROJECT }}:${{ steps.export_tag_name_and_platforms.outputs.tag_name }}
         platforms: ${{ steps.export_tag_name_and_platforms.outputs.platforms }}
