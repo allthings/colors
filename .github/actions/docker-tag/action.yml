@@ -1,0 +1,36 @@
+# You can find code and docs here: https://github.com/allthings/github-action-tools
+name: docker-tag
+description: 'Tag and push multiarch Docker image with latest tag'
+inputs:
+  name:
+    description: 'Image name'
+    required: true
+  tag:
+    description: 'Image tag'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Tag and push
+      env:
+        PROJECT: ${{ inputs.name }}
+        TAG_NAME: ${{ inputs.tag }}
+      shell: bash
+      run: |
+        docker pull --platform linux/arm64 allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }}
+        docker tag allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }} allthings/${{ env.PROJECT }}:latest-arm64
+
+        docker pull --platform linux/amd64 allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }}
+        docker tag allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }} allthings/${{ env.PROJECT }}:latest-amd64
+
+        docker push allthings/${{ env.PROJECT }}:latest-arm64
+        docker push allthings/${{ env.PROJECT }}:latest-amd64
+
+        docker manifest create \
+          allthings/${{ env.PROJECT }}:latest \
+          --amend allthings/${{ env.PROJECT }}:latest-amd64 \
+          --amend allthings/${{ env.PROJECT }}:latest-arm64
+
+        docker manifest push allthings/${{ env.PROJECT }}:latest
+
