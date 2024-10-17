@@ -16,26 +16,31 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Set PATH
+      shell: bash
+      run: |
+        echo "/bin" >> $GITHUB_PATH
+        echo "/sbin" >> $GITHUB_PATH
+        echo "/usr/bin" >> $GITHUB_PATH
+        echo "/usr/sbin" >> $GITHUB_PATH
+        echo "/usr/local/bin" >> $GITHUB_PATH
+        echo "/usr/local/sbin" >> $GITHUB_PATH
+
+    - name: export Token
+      id: export_token
+      shell: bash
+      run: |
+        echo "token=$(curl -s -u $(cat /root/.docker/config.json | jq '.auths."https://index.docker.io/v1/"."auth"' | cut -c2- | rev | cut -c2- | rev | base64 --decode) "https://auth.docker.io/token?service=registry.docker.io&scope=repository:allthings/${{ env.PROJECT }}:pull,push" | jq --raw-output .token)" >> $GITHUB_OUTPUT
+
     - name: Tag and push
       env:
         PROJECT: ${{ inputs.name }}
         TAG_NAME: ${{ inputs.tag }}
         LATEST_TAG: ${{ inputs.latest-tag }}
+        CONTENT_TYPE: "application/vnd.docker.distribution.manifest.list.v2+json"
+        TOKEN: ${{ steps.export_token.outputs.token }}
       shell: bash
       run: |
-        docker pull --platform linux/arm64 allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }}
-        docker tag allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }} allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }}-arm64
-
-        docker pull --platform linux/amd64 allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }}
-        docker tag allthings/${{ env.PROJECT }}:${{ env.TAG_NAME }} allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }}-amd64
-
-        docker push allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }}-arm64
-        docker push allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }}-amd64
-
-        docker manifest create \
-          allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }} \
-          --amend allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }}-amd64 \
-          --amend allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }}-arm64
-
-        docker manifest push allthings/${{ env.PROJECT }}:${{ env.LATEST_TAG }}
-
+        curl -s -H "Accept: ${{ env.CONTENT_TYPE }}" -H "Authorization: Bearer ${{ env.TOKEN }}" "https://index.docker.io/v2/allthings/${{ env.PROJECT }}/manifests/${{ env.TAG_NAME }}" > manifest.json
+        sed  -i 's/vnd.oci.image.index.v1+json/vnd.docker.distribution.manifest.list.v2+json/g' manifest.json
+        curl -X PUT -H "Content-Type: ${{ env.CONTENT_TYPE }}" -H "Authorization: Bearer ${{ env.TOKEN }}" -d @manifest.json "https://index.docker.io/v2/allthings/${{ env.PROJECT }}/manifests/${{ env.LATEST_TAG }}"
