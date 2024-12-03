@@ -1,0 +1,41 @@
+# You can find code and docs here: https://github.com/allthings/github-action-tools
+name: version-tag
+description: 'Creates a git version tag'
+inputs:
+  trigger-workflow-name:
+    description: 'Name of workflow that is triggered after creating tag'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set PATH
+      shell: bash
+      run: |
+        echo "/bin" >> $GITHUB_PATH
+        echo "/sbin" >> $GITHUB_PATH
+        echo "/usr/bin" >> $GITHUB_PATH
+        echo "/usr/sbin" >> $GITHUB_PATH
+        echo "/usr/local/bin" >> $GITHUB_PATH
+        echo "/usr/local/sbin" >> $GITHUB_PATH
+
+    - name: create new tag
+      shell: bash
+      env:
+        WORKFLOW_NAME: ${{ inputs.trigger-workflow-name }}
+      run: |
+        set +e
+        git config user.name "Bot"
+        git config user.email "admin@allthings.me"
+        currentVersion="$(git describe --tags `git rev-list --tags --max-count=1`)"
+        if [ "$currentVersion" = "" ]; then 
+          currentVersion="v0.0.0"
+        fi
+        latestVersion="${currentVersion//v[0-9]*.[0-9]*./}"
+        ((++latestVersion))
+        newVersion="${currentVersion%.*}.$latestVersion"
+        git tag -a $newVersion -m "Release new version: $newVersion"
+        git push origin $newVersion
+        if [ ! -z "${{ env.WORKFLOW_NAME }}" ]; then 
+          gh workflow run ${{ env.WORKFLOW_NAME }} --ref $newVersion
+        fi
