@@ -7,6 +7,9 @@
     "dist"
   ],
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=20.10"
+  },
   "packageManager": "yarn@1.22.22",
   "devDependencies": {
     "@allthings/eslint-config": "2.1.1",
