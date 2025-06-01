@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@allthings/eslint-config@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@allthings/eslint-config/-/eslint-config-2.2.0.tgz#09d7531b9803267a74aeb9a254b91972da764f31"
-  integrity sha512-7fliDHCHpITcLfOHINFixdXaJHqlEFN0gdmxRewvyudN76IzergpdEcUR6T10bNeKsTyF7gsg3hBqXLS4cO0gg==
+"@allthings/eslint-config@2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@allthings/eslint-config/-/eslint-config-2.2.2.tgz#2e5b8caff57df31cc78cfab8e0faaeb8c4f6ea08"
+  integrity sha512-62YRA1PQl3FczUtdYoRqLCPFvAW1cIeKJi7TpYRZtprqeb+su+BDTAV/O4JkqAV9eg0HWHJm8BBMud+vZAwG7Q==
   dependencies:
     "@rushstack/eslint-patch" "^1.11.0"
     "@stylistic/eslint-plugin" "3.1.0"
