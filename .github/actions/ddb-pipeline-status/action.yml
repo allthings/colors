@@ -55,7 +55,7 @@ runs:
         }
         exit 0
 
-    - name: Set to in passed
+    - name: Check status
       env:
         BRANCH_NAME: ${{ github.ref_name }}
         COMMAND_ACTION: ${{ inputs.action }}
