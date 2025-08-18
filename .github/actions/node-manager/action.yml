@@ -12,6 +12,9 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
 
-    - name: Install yarn
+    - name: Enable Corepack
       shell: bash
-      run: npm install -g yarn
+      run: |
+        corepack enable
+        # prefetch the pinned Yarn version for faster CI (honors packageManager)
+        corepack prepare "$(jq -r .packageManager package.json)" --activate
