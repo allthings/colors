@@ -8,6 +8,9 @@ inputs:
   attempts:
     description: 'Attempt until failure'
     required: true
+  node-version:
+    description: 'Node version'
+    required: false
 
 runs:
   using: "composite"
@@ -21,6 +24,12 @@ runs:
         echo "/usr/sbin" >> $GITHUB_PATH
         echo "/usr/local/bin" >> $GITHUB_PATH
         echo "/usr/local/sbin" >> $GITHUB_PATH
+
+    - name: setup node
+      if: ${{ inputs.node-version != '' }}
+      uses: ./.github/actions/node-manager
+      with:
+        node-version: ${{ inputs.node-version }}
 
     - name: retry script
       shell: bash
