@@ -3,7 +3,7 @@ on: [ push ]
 
 env:
   TAG_NAME: $(echo "${{ github.ref_name }}" | sed 's/[^a-zA-Z0-9._-]/_/g')
-  NVM_NODE_VERSION: 20
+  NODE_VERSION: 20
   HUSKY: 0
   PROJECT: colors
 
@@ -22,7 +22,7 @@ jobs:
       - name: setup node
         uses: ./.github/actions/node-manager
         with:
-          node-version: ${{ env.NVM_NODE_VERSION }}
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: build-and-lint
         shell: bash
@@ -43,7 +43,7 @@ jobs:
       - name: setup node
         uses: ./.github/actions/node-manager
         with:
-          node-version: ${{ env.NVM_NODE_VERSION }}
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: dry-run-publish
         shell: bash
@@ -67,7 +67,7 @@ jobs:
       - name: setup node
         uses: ./.github/actions/node-manager
         with:
-          node-version: ${{ env.NVM_NODE_VERSION }}
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: publish-npm
         shell: bash
