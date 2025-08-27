@@ -26,7 +26,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
-        RUNNER_BUCKET: s3://agent-artifacts-eu-west-1/${{ github.run_id }}/runner-${{ inputs.runner-id }}-${{ github.run_attempt }}
+        RUNNER_BUCKET: s3://agent-artifacts-eu-west-1/${{ github.run_id }}/runner-${{ inputs['runner-id'] }}-${{ github.run_attempt }}
       run: >
         aws-vault exec --backend=pass allthings-development-github-role --duration=12h -- 
         aws s3 cp --region=eu-west-1 --recursive "./" "${{ env.RUNNER_BUCKET }}" --acl bucket-owner-full-control
@@ -35,7 +35,7 @@ runs:
       shell: bash
       working-directory: ${{ inputs.path }}
       env:
-        RUNNER_BUCKET: s3://agent-artifacts-eu-west-1/${{ github.run_id }}/runner-${{ inputs.runner-id }}-${{ github.run_attempt }}
+        RUNNER_BUCKET: s3://agent-artifacts-eu-west-1/${{ github.run_id }}/runner-${{ inputs['runner-id'] }}-${{ github.run_attempt }}
       run: >
         while IFS= read -r runnerFile; 
         do 

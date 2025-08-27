@@ -22,11 +22,11 @@ runs:
     - name: create new tag
       shell: bash
       env:
-        WORKFLOW_NAME: ${{ inputs.trigger-workflow-name }}
+        WORKFLOW_NAME: ${{ inputs['trigger-workflow-name'] }}
       run: |
         set +e
-        git config user.name "Bot"
-        git config user.email "admin@allthings.me"
+        git config user.name "Allthings Bot"
+        git config user.email "bot@allthings.me"
         currentVersion="$(git describe --tags `git rev-list --tags --max-count=1`)"
         if [ "$currentVersion" = "" ]; then 
           currentVersion="v0.0.0"
