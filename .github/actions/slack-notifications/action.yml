@@ -14,7 +14,7 @@ runs:
         PROJECT: ${{ env.PROJECT }}
         BUILD_NUMBER: ${{ github.run_id }}
         SLACK_GITHUB_ACTIONS_WEBHOOK: ${{ env.SLACK_GITHUB_ACTIONS_WEBHOOK }}
-        NOTIFICATION_TYPE: ${{ inputs.notification-type }}
+        NOTIFICATION_TYPE: ${{ inputs['notification-type'] }}
       shell: bash
       run: |
         if [ "${{ env.NOTIFICATION_TYPE }}" = "nightly-security-check" ]; then

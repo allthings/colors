@@ -38,7 +38,7 @@ runs:
       env:
         PROJECT: ${{ inputs.name }}
         TAG_NAME: ${{ inputs.tag }}
-        LATEST_TAG: ${{ inputs.latest-tag }}
+        LATEST_TAG: ${{ inputs['latest-tag'] }}
         CONTENT_TYPE: "application/vnd.docker.distribution.manifest.list.v2+json"
         TOKEN: ${{ steps.export_token.outputs.token }}
       shell: bash

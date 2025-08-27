@@ -26,10 +26,10 @@ runs:
         echo "/usr/local/sbin" >> $GITHUB_PATH
 
     - name: setup node
-      if: ${{ inputs.node-version != '' }}
+      if: ${{ inputs['node-version'] != '' }}
       uses: ./.github/actions/node-manager
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{ inputs['node-version'] }}
 
     - name: retry script
       shell: bash

@@ -19,7 +19,7 @@ runs:
     - name: setup node
       uses: ./.github/actions/node-manager
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{ inputs['node-version'] }}
 
     - name: install yarn v4 dependencies
       shell: bash

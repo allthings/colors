@@ -46,7 +46,7 @@ runs:
         tags: allthings/${{ env.PROJECT }}:${{ steps.export_tag_name_and_platforms.outputs.tag_name }}
         platforms: ${{ steps.export_tag_name_and_platforms.outputs.platforms }}
         context: ${{ inputs.context }}
-        build-args: ${{ inputs.build-args }}
+        build-args: ${{ inputs['build-args'] }}
 
     - name: Wait to retry
       if: steps.buildx1.outcome != 'success'
@@ -65,4 +65,4 @@ runs:
         tags: allthings/${{ env.PROJECT }}:${{ steps.export_tag_name_and_platforms.outputs.tag_name }}
         platforms: ${{ steps.export_tag_name_and_platforms.outputs.platforms }}
         context: ${{ inputs.context }}
-        build-args: ${{ inputs.build-args }}
+        build-args: ${{ inputs['build-args'] }}
