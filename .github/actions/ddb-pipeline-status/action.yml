@@ -12,6 +12,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v5.1.0
+      with:
+        role-to-assume: arn:aws:iam::195984418224:role/GithubActionsRole
+        aws-region: eu-west-1
+
     - name: Set to in progress
       env:
         BRANCH_NAME: ${{ github.ref_name }}
@@ -24,7 +30,7 @@ runs:
 
         keyJson="{\"pk\":{\"S\":\"${{ env.PROJECT }}-${{ env.BRANCH_NAME }}\"}}"
         {
-          aws-vault exec --backend=pass allthings-development-github-role -- aws dynamodb update-item \
+          aws dynamodb update-item \
             --table-name "${{ env.TABLE_NAME }}" \
             --update-expression "SET passed = :status" \
             --expression-attribute-values '{":status":{"BOOL":false}}' \
@@ -46,7 +52,7 @@ runs:
 
         keyJson="{\"pk\":{\"S\":\"${{ env.PROJECT }}-${{ env.BRANCH_NAME }}\"}}"
         {
-          aws-vault exec --backend=pass allthings-development-github-role -- aws dynamodb update-item \
+          aws dynamodb update-item \
             --table-name "${{ env.TABLE_NAME }}" --key="$keyJson" \
             --update-expression "SET passed = :status" \
             --expression-attribute-values '{":status":{"BOOL":true}}'
@@ -66,6 +72,6 @@ runs:
         if [ "${{ env.COMMAND_ACTION }}" != "status" ]; then exit 0; fi
 
         keyJson="{\"pk\":{\"S\":\"${{ env.PROJECT }}-${{ env.BRANCH_NAME }}\"}}"
-        aws-vault exec --backend=pass allthings-development-github-role -- aws dynamodb get-item \
+        aws dynamodb get-item \
           --table-name "${{ env.TABLE_NAME }}" --key="$keyJson" | grep "\"BOOL\": true" || exit 1
         exit 0
