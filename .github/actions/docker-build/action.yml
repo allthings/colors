@@ -1,23 +1,23 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: docker-build
-description: 'Build multiarch Docker image'
+description: "Build multiarch Docker image"
 inputs:
   context:
-    description: 'Folder path where Dockerfile is located'
+    description: "Folder path where Dockerfile is located"
     required: false
-    default: './'
+    default: "./"
   multiarch:
-    description: 'Decides if arm build is required'
+    description: "Decides if arm build is required"
     required: false
-    default: 'false'
+    default: "false"
   name:
-    description: 'Image name'
+    description: "Image name"
     required: true
   tag:
-    description: 'Image tag'
+    description: "Image tag"
     required: true
   build-args:
-    description: 'Build args for image build'
+    description: "Build args for image build"
     required: false
 
 runs:

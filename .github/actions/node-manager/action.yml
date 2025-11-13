@@ -1,10 +1,10 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: node-manager
-description: 'Setup node and install yarn'
+description: "Setup node and install yarn"
 inputs:
   node-version:
-    default: '20'
-    description: 'Node version'
+    default: "20"
+    description: "Node version"
     required: false
 runs:
   using: "composite"

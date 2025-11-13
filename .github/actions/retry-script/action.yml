@@ -1,15 +1,15 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: retry-script
-description: 'Retries provided script'
+description: "Retries provided script"
 inputs:
   script:
-    description: 'Location of file'
+    description: "Location of file"
     required: true
   attempts:
-    description: 'Attempt until failure'
+    description: "Attempt until failure"
     required: true
   node-version:
-    description: 'Node version'
+    description: "Node version"
     required: false
 
 runs:

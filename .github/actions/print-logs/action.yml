@@ -1,9 +1,9 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: print-logs
-description: 'Prints logs by given path'
+description: "Prints logs by given path"
 inputs:
   path:
-    description: 'Location of logs'
+    description: "Location of logs"
     required: true
 
 runs:

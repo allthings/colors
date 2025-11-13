@@ -1,12 +1,12 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: ddb-pipeline-status
-description: 'Changes the pipeline status and checks it'
+description: "Changes the pipeline status and checks it"
 inputs:
   action:
-    description: 'Action of progress, passed, status'
+    description: "Action of progress, passed, status"
     required: true
   project:
-    description: 'Name of project'
+    description: "Name of project"
     required: true
 
 runs:
