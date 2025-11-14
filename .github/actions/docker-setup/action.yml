@@ -1,6 +1,6 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: docker-setup
-description: 'Setup up docker and login'
+description: "Setup up docker and login"
 runs:
   using: "composite"
   steps:
@@ -13,5 +13,5 @@ runs:
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
-        username: '${{ env.DOCKER_LOGIN_USER }}'
-        password: '${{ env.DOCKER_LOGIN_PASSWORD }}'
+        username: "${{ env.DOCKER_LOGIN_USER }}"
+        password: "${{ env.DOCKER_LOGIN_PASSWORD }}"

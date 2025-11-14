@@ -1,12 +1,12 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: upload-artifacts
-description: 'Uploads files to s3'
+description: "Uploads files to s3"
 inputs:
   path:
-    description: 'Location of files'
+    description: "Location of files"
     required: true
   runner-id:
-    description: 'Id of runner as an identifier'
+    description: "Id of runner as an identifier"
     required: true
 
 runs:

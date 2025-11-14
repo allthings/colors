@@ -1,17 +1,17 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: docker-tag
-description: 'Tag and push multiarch Docker image with latest tag'
+description: "Tag and push multiarch Docker image with latest tag"
 inputs:
   name:
-    description: 'Image name'
+    description: "Image name"
     required: true
   tag:
-    description: 'Image tag'
+    description: "Image tag"
     required: true
   latest-tag:
-    description: 'Latest tag override'
+    description: "Latest tag override"
     required: false
-    default: 'latest'
+    default: "latest"
 
 runs:
   using: "composite"

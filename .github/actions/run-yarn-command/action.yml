@@ -1,13 +1,13 @@
 # You can find code and docs here: https://github.com/allthings/github-action-toolsname: run-yarn-command
 name: run-yarn-command
-description: 'Run yarn v4 command'
+description: "Run yarn v4 command"
 inputs:
   command:
-    description: 'Yarn command'
+    description: "Yarn command"
     required: true
   node-version:
-    default: '20'
-    description: 'Node version'
+    default: "20"
+    description: "Node version"
     required: false
 runs:
   using: "composite"

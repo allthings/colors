@@ -1,9 +1,9 @@
 # You can find code and docs here: https://github.com/allthings/github-action-tools
 name: slack-notifications
-description: 'Sends slack notification'
+description: "Sends slack notification"
 inputs:
   notification-type:
-    description: 'Type of notification like nightly-security-check'
+    description: "Type of notification like nightly-security-check"
     required: true
 
 runs:
