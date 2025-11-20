@@ -67,9 +67,17 @@ runs:
         COMMAND_ACTION: ${{ inputs.action }}
         PROJECT: ${{ inputs.project }}
         TABLE_NAME: allthings-github-actions-status
+        IS_TAG: ${{ startsWith(github.ref, 'refs/tags/v') }}
       shell: bash
       run: |
+        # Skip entirely if this is not a status action
         if [ "${{ env.COMMAND_ACTION }}" != "status" ]; then exit 0; fi
+
+        # Skip the status check when deploying from a tag
+        if [ "${{ env.IS_TAG }}" = "true" ]; then
+          echo "Detected tag '${{ env.BRANCH_NAME }}' - skipping pipeline status check."
+          exit 0
+        fi
 
         keyJson="{\"pk\":{\"S\":\"${{ env.PROJECT }}-${{ env.BRANCH_NAME }}\"}}"
         aws dynamodb get-item \
