@@ -6,7 +6,7 @@ inputs:
     description: "Yarn command"
     required: true
   node-version:
-    default: "20"
+    default: "22"
     description: "Node version"
     required: false
 runs:
