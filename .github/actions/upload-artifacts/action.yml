@@ -23,7 +23,7 @@ runs:
         echo "/usr/local/sbin" >> $GITHUB_PATH
 
     - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v5.1.1
+      uses: aws-actions/configure-aws-credentials@v6.0.0
       with:
         role-to-assume: arn:aws:iam::195984418224:role/GithubActionsRole
         aws-region: eu-west-1
