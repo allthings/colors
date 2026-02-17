@@ -13,7 +13,7 @@
     "strict": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
-    "target": "es2021"
+    "target": "es2023"
   },
   "include": ["src"],
   "exclude": ["node_modules", "lib"]
