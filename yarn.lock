@@ -2,12 +2,11 @@
 # yarn lockfile v1
 
 
-"@allthings/eslint-config@2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@allthings/eslint-config/-/eslint-config-2.2.3.tgz#6b5844cf86c448a82956aae00a03b88e2faa67e7"
-  integrity sha512-3zQJB0ziNUSfHWL/yqhIp5maloyDUheuXVAzyG841zv97uBo53zFXHi1gPSKPEA4kmTblgFc54YBa5EXEX08fA==
+"@allthings/eslint-config@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@allthings/eslint-config/-/eslint-config-3.0.0.tgz#7fd8ed4492055e4c6d547ca96d899db03a18b485"
+  integrity sha512-uQuOekYR3PVYQrUgsdXExWqA1Oqa8joyKz7CYoEunPOPLJCWT7qMih3dOcxAd0Yt7xSLGj7gNqKOWMYVs1vpDQ==
   dependencies:
-    "@rushstack/eslint-patch" "^1.11.0"
     "@stylistic/eslint-plugin" "3.1.0"
     "@typescript-eslint/eslint-plugin" "^8.48.0"
     "@typescript-eslint/parser" "^8.48.0"
@@ -25,6 +24,7 @@
     eslint-plugin-simple-import-sort "^12.1.1"
     eslint-plugin-typescript-sort-keys "^3.3.0"
     eslint-plugin-unicorn "^56.0.1"
+    globals "^13.0.0"
 
 "@babel/code-frame@^7.0.0":
   version "7.29.0"
@@ -306,11 +306,6 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
-
-"@rushstack/eslint-patch@^1.11.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.15.0.tgz#8184bcb37791e6d3c3c13a9bfbe4af263f66665f"
-  integrity sha512-ojSshQPKwVvSMR8yT2L/QtUkV5SXi/IfDiJ4/8d6UbTPjiHVmxZzUAzGD8Tzks1b9+qQkZa0isUOvYObedITaw==
 
 "@stylistic/eslint-plugin@3.1.0":
   version "3.1.0"
@@ -1883,7 +1878,7 @@ global-directory@^4.0.1:
   dependencies:
     ini "4.1.1"
 
-globals@^13.19.0:
+globals@^13.0.0, globals@^13.19.0:
   version "13.24.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-13.24.0.tgz#8432a19d78ce0c1e833949c36adb345400bb1171"
   integrity sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==
