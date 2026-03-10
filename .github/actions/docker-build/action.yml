@@ -37,7 +37,7 @@ runs:
     - name: Build and push
       continue-on-error: true
       id: buildx1
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v7
       env:
         PROJECT: ${{ inputs.name }}
       with:
@@ -55,7 +55,7 @@ runs:
         sleep 60
 
     - name: Build and push (2nd attempt)
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v7
       if: steps.buildx1.outcome != 'success'
       env:
         PROJECT: ${{ inputs.name }}
